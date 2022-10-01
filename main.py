@@ -16,6 +16,7 @@ import os
 from ops.argparser import  argparser
 import torch
 import torch.multiprocessing as mp
+import timm
 assert timm.__version__ == "0.3.2" # version check
 def main(args):
     import socket
