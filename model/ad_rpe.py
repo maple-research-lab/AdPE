@@ -17,9 +17,9 @@ import torch.nn as nn
 #from timm.models.vision_transformer import PatchEmbed, Block
 from timm.models.vision_transformer import Mlp, PatchEmbed
 
-from util.pos_embed import get_2d_sincos_pos_embed
+from position_embed.ape_pos_embed import get_2d_sincos_pos_embed
 from timm.models.layers import DropPath
-from irpe import get_rpe_config
+from position_embed.irpe import get_rpe_config
 rpe_config = get_rpe_config(
     ratio=1.9,
     method="product",
@@ -55,7 +55,7 @@ class RPEAttention(nn.Module):
 
         elif adv_type==2:
             #adv coordinate
-            from irpe_adv_coord import build_rpe
+            from  position_embed.irpe_adv_coord import build_rpe
         self.rpe_q, self.rpe_k, self.rpe_v = \
                 build_rpe(rpe_config,
                           head_dim=head_dim,

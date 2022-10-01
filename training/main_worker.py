@@ -49,6 +49,7 @@ def main_worker(gpu, ngpus_per_node,args):
 
     if global_rank == 0 and args.log_dir is not None:
         os.makedirs(args.log_dir, exist_ok=True)
+        os.makedirs(args.output_dir, exist_ok=True)
         log_writer = SummaryWriter(log_dir=args.log_dir)
     else:
         log_writer = None
