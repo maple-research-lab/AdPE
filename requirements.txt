@@ -1,0 +1,9 @@
+torch==1.8.1
+torchvision==0.9.1
+timm==0.3.2
+easydict
+opencv-python
+simplejson
+lvis
+tensorboard
+tensorboardX
