@@ -9,6 +9,7 @@ from ops.distribute_utils import get_rank,get_world_size,is_main_process
 from optimizer.config_wd import add_weight_decay
 from optimizer.NativeScaler import NativeScalerWithGradNormCount as NativeScaler
 from training.io_utils import save_model,load_model
+from training.train_epoch import train_epoch
 import time
 import datetime
 import json
