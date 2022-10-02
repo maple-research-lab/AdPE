@@ -174,10 +174,36 @@ Interpolated RPE should be finetuned via --pe_type=2 in finetune script.
 
 To run 1600 epoch experiments, simply change "--epochs 1600 --warmup_epochs 40". 
 
-## 3 Finetune MAE+
+## 3 Multi Machine Pre-Training
+This can only be run with multiple machines. Limited by our computing resources, we run experiments with 4096 on 4 matchines of 8*V100 GPU.
+Here we use MAE+ APE baseline as an example:
+
+On the first node machine, run the following command:
+```
+python main.py  --pe_type=1 --adv_type=0 --norm=0  --batch_size 128 --accum_iter=4 \
+ --input_size 112 --num_crop 4  --model adpe_vit_base_patch16  \
+ --norm_pix_loss --mask_ratio 0.75  --epochs 400 --warmup_epochs 20 \
+ --blr 1.5e-4 --weight_decay 0.05 --data_path [imagenet_path]  \
+ --output_dir [output_dir] --log_dir [output_dir] --adv_lr=1.5e-4 \
+ --world_size=4 --rank=0   --dist_url "tcp://localhost:10001"
+```
+Here [imagenet_path] is the imagenet directory, [output_dir] is the directory to save model weights and logs.
+
+On the other 3 nodes, run the following command:
+```
+python main.py  --pe_type=1 --adv_type=0 --norm=0  --batch_size 128 --accum_iter=4 \
+ --input_size 112 --num_crop 4  --model adpe_vit_base_patch16  \
+ --norm_pix_loss --mask_ratio 0.75  --epochs 400 --warmup_epochs 20 \
+ --blr 1.5e-4 --weight_decay 0.05 --data_path [imagenet_path]  \
+ --output_dir [output_dir] --log_dir [output_dir] --adv_lr=1.5e-4 \
+ --world_size=4 --rank=[rank_id]   --dist_url "tcp://[master_ip]:10001"
+```
+Here we should change [master_ip] to the IP of the 1st node, also we should adjust rank with 1, 2, and 3 for 3 additional nodes.
+
+## 4 Finetune MAE+
 Here we used vit_base_patch16 to illustrate the command. For finetuning vit-l and vit-h, please check MAE paper for detailed finetune parameter changes, we followed the same hyper-param change. For learning rate, please always sweep from 1e-4 to 1e-3 to find a better learning rate with better finetune results.
 
-### 3.1 Finetune APE of MAE+
+### 4.1 Finetune APE of MAE+
 For batch-size of 1024 (gradient accumulation), we can run on a single machine of 8\*V100 32gb GPU with the following command:
 ```
 python3 main_finetune.py --accum_iter 1 --pe_type 0  \
@@ -193,7 +219,7 @@ Here [model_path] is the pre-trained model path,[imagenet_path] is the imagenet 
 
 For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment for parameters such as --layer_decay.
 
-### 3.2 Finetune RPE of MAE+
+### 4.2 Finetune RPE of MAE+
 For batch-size of 4096 (gradient accumulation), we can run on a single machine of 8\*V100 32gb GPU with the following command:
 ```
 python3 main_finetune.py --accum_iter 4 --pe_type 1  \
@@ -210,7 +236,7 @@ Here [model_path] is the pre-trained model path,[imagenet_path] is the imagenet 
 For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment for parameters such as --layer_decay.
 
 
-### 3.3 Finetune RPE of MAE+
+### 4.3 Finetune RPE of MAE+
 For batch-size of 4096 (gradient accumulation), we can run on a single machine of 8\*V100 32gb GPU with the following command:
 ```
 python3 main_finetune.py --accum_iter 4 --pe_type 2  \
