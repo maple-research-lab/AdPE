@@ -114,7 +114,7 @@ class Attention(nn.Module):
         super().__init__()
         self.num_heads = num_heads
         head_dim = dim // num_heads
-        # NOTE scale factor was wrong in my original version, can set manually to be compat with prev weights
+
         self.scale = qk_scale or head_dim ** -0.5
 
         self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
@@ -329,7 +329,7 @@ def _conv_filter(state_dict, patch_size=16):
 @register_model
 def vit_small_patch16_224(pretrained=False, **kwargs):
     if pretrained:
-        # NOTE my scale was wrong for original weights, leaving this here until I have better ones for this model
+
         kwargs.setdefault('qk_scale', 768 ** -0.5)
     model = VisionTransformer(patch_size=16, embed_dim=768, depth=8, num_heads=8, mlp_ratio=3., **kwargs)
     model.default_cfg = default_cfgs['vit_small_patch16_224']
