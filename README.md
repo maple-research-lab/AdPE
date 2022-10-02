@@ -276,7 +276,7 @@ For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment 
 <td align="center"><a href="">model</a></td>
 </tr>
 <tr><td align="left">AdPE</td>
-<td align="center">RPE</td>
+<td align="center">APE</td>
 <td align="center">Adv Coord</td>
 <td align="center">84.2</td>
 <td align="center"><a href="">model</a></td>
@@ -288,7 +288,7 @@ For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment 
 <td align="center"><a href="">model</a></td>
 </tr>
 <tr><td align="left">AdPE</td>
-<td align="center">APE</td>
+<td align="center">RPE</td>
 <td align="center">Adv Embed</td>
 <td align="center">84.3</td>
 <td align="center"><a href="">model</a></td>
