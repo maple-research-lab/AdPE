@@ -252,3 +252,120 @@ Here [model_path] is the pre-trained model path,[imagenet_path] is the imagenet 
 
 For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment for parameters such as --layer_decay.
 
+# Performance
+### Vit-B performance
+<table><tbody>
+<!-- START TABLE -->
+<!-- TABLE HEADER -->
+<th valign="bottom">Method </th>
+<th valign="bottom">PE Type</th>
+<th valign="bottom">Adv Type</th>
+<th valign="bottom">FT Top-1</th>
+<th valign="bottom">Model<br/>Link</th>
+<!-- TABLE BODY -->
+<tr><td align="left">MAE+</td>
+<td align="center">APE</td>
+<td align="center">-</td>
+<td align="center">83.9</td>
+<td align="center"><a href="">model</a></td>
+</tr>
+<tr><td align="left">AdPE</td>
+<td align="center">APE</td>
+<td align="center">Adv Embed</td>
+<td align="center">84.1</td>
+<td align="center"><a href="">model</a></td>
+</tr>
+<tr><td align="left">AdPE</td>
+<td align="center">RPE</td>
+<td align="center">Adv Coord</td>
+<td align="center">84.2</td>
+<td align="center"><a href="">model</a></td>
+</tr>
+<tr><td align="left">MAE+</td>
+<td align="center">RPE</td>
+<td align="center">-</td>
+<td align="center">84.2</td>
+<td align="center"><a href="">model</a></td>
+</tr>
+<tr><td align="left">AdPE</td>
+<td align="center">APE</td>
+<td align="center">Adv Embed</td>
+<td align="center">84.3</td>
+<td align="center"><a href="">model</a></td>
+</tr>
+<tr><td align="left">AdPE</td>
+<td align="center">RPE</td>
+<td align="center">Adv Coord</td>
+<td align="center">84.4</td>
+<td align="center"><a href="">model</a></td>
+</tr>
+
+</tbody></table>
+
+### Final Performance
+<table><tbody>
+<!-- START TABLE -->
+<!-- TABLE HEADER -->
+<th valign="bottom"></th>
+<th valign="bottom">ViT-Base</th>
+<th valign="bottom">ViT-Large</th>
+<th valign="bottom">ViT-Huge</th>
+<!-- TABLE BODY -->
+<tr><td align="left">pre-trained checkpoint</td>
+<td align="center"><a href="">download</a></td>
+<td align="center"><a href="">download</a></td>
+<td align="center"><a href="">download</a></td>
+</tr>
+<tr><td align="left">FT Top-1</td>
+<td align="center"><tt>84.4</tt></td>
+<td align="center"><tt>86.3</tt></td>
+<td align="center"><tt>waiting</tt></td>
+</tr>
+</tbody></table>
+
+## Downstream Tasks
+### 1 ADE20K Segmentation 
+#### 1.1 Please install [mmsegmentation](https://github.com/open-mmlab/mmsegmentation) following their instructions.
+#### 1.2 Please follow [instructions](https://github.com/open-mmlab/mmsegmentation/tree/master/configs/mae) for ADE20K segmentation.
+#### 1.3 Run segmentation with configurations.
+```
+bash tools/dist_train.sh \
+[config_path] \
+ $GPUS  --options optimizer.lr=[learning_rate] \
+ --work-dir [output_dir] --deterministic
+```
+[config_path] specifies the configuration file  "segmentation/upernet_mae-base_fp16_512x512_160k_ade20k_ms.py" in (https://github.com/open-mmlab/mmsegmentation/tree/master/configs/mae).
+[learning_rate] should be specified as 2e-4 and it should be searched in [5e-5, 3e-4].
+
+### 2 COCO detection and instance segmentation
+#### 2.1 Install [detectron2](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md) and follow its instructions in preparing datasets.
+#### 2.2 Install additional dependencies.
+```
+pip install setuptools==59.5.0
+pip install shapely
+```
+#### 2.3 Follow [instructions](https://github.com/facebookresearch/detectron2/tree/main/projects/ViTDet) for training the vit detection on COCO.
+#### 2.4 Run detectron2 with our configuration in "detection" dir.
+Run on a GPU machine with 8 A100 GPUs.
+```
+python tools/lazyconfig_train_net.py \
+--config-file [config_path] --num-gpus=8 \
+OUTPUT_DIR=[output_dir] train.init_checkpoint=[model_path] \
+  dataloader.train.total_batch_size=32 \
+   train.max_iter=400000
+```
+Here [config_path] specifies the configuration file, should be "detection/cascade_mask_rcnn_vitdet_b_100ep.py".
+[output_dir] is the directory to save model weights and logs.
+[mode_path] is the pre-trained model path.
+For learning rate, please change lr_multiplier.scheduler.values in "detection/mask_rcnn_vitdet_b_100ep.py" for a more suitable learning rate.
+
+## Citation:
+[AdPE: Adversarial Positional Embeddings for Pretraining Vision Transformers via MAE+]().  
+```
+@article{wang2022adpe,
+  title={AdPE: Adversarial Positional Embeddings for Pretraining Vision Transformers via MAE+},
+  author={Wang, Xiao and Wang, Ying and Xuan, Ziwei and Qi, Guo-Jun},
+  journal={The Eleventh International Conference on Learning Representations (ICLR2023)},
+  year={2023}
+}
+```
