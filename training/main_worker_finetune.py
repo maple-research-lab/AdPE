@@ -10,7 +10,7 @@ import optimizer.lr_decay as lrd
 from optimizer.NativeScaler import NativeScalerWithGradNormCount as NativeScaler
 from training.io_utils import load_model,save_model
 from training.engine_finetune import evaluate,train_one_epoch
-
+from torch.utils.tensorboard import SummaryWriter
 def main_worker(gpu, ngpus_per_node,args):
     init_distributed_mode(gpu,ngpus_per_node,args)
     print('job dir: {}'.format(os.path.dirname(os.path.realpath(__file__))))
