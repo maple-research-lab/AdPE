@@ -267,37 +267,37 @@ For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment 
 <td align="center">APE</td>
 <td align="center">-</td>
 <td align="center">83.9</td>
-<td align="center"><a href="">model</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/EVyDG3ZhpqpEkgPLQOBDSvsBga7kPdlt_MuGNQmcIu-KDA?e=Pc5gdW">model</a></td>
 </tr>
 <tr><td align="left">AdPE</td>
 <td align="center">APE</td>
 <td align="center">Adv Embed</td>
 <td align="center">84.1</td>
-<td align="center"><a href="">model</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/EUrmQsBkOAlGhDxA7Ft2_S0B4cFmDAdfK9tWhpTwT-AuYQ?e=TtHU0g">model</a></td>
 </tr>
 <tr><td align="left">AdPE</td>
 <td align="center">APE</td>
 <td align="center">Adv Coord</td>
 <td align="center">84.2</td>
-<td align="center"><a href="">model</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/EfV8LVMq99BKgJSliu9dCcEB-8MRkiiWCwCqDgylpt-m2A?e=Ms6vzB">model</a></td>
 </tr>
 <tr><td align="left">MAE+</td>
 <td align="center">RPE</td>
 <td align="center">-</td>
 <td align="center">84.2</td>
-<td align="center"><a href="">model</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/EYdJwg-IXmhKlVVlmAhZEGUBLtXfh8zYEty0JumTRe0uDQ?e=XDNESa">model</a></td>
 </tr>
 <tr><td align="left">AdPE</td>
 <td align="center">RPE</td>
 <td align="center">Adv Embed</td>
 <td align="center">84.3</td>
-<td align="center"><a href="">model</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/ETOhQDvABH1DtraWqjSzbjgB9aua7urwABRSTcI9zDInsA?e=cEkKTN">model</a></td>
 </tr>
 <tr><td align="left">AdPE</td>
 <td align="center">RPE</td>
 <td align="center">Adv Coord</td>
 <td align="center">84.4</td>
-<td align="center"><a href="">model</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/EVy4z40ivhRNn_cRHeJtUuoBw0ul_i5EswU-NQqjCn_GVA?e=73bdBd">model</a></td>
 </tr>
 
 </tbody></table>
@@ -312,8 +312,8 @@ For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment 
 <th valign="bottom">ViT-Huge</th>
 <!-- TABLE BODY -->
 <tr><td align="left">pre-trained checkpoint</td>
-<td align="center"><a href="">download</a></td>
-<td align="center"><a href="">download</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/EVy4z40ivhRNn_cRHeJtUuoBw0ul_i5EswU-NQqjCn_GVA?e=73bdBd">download</a></td>
+<td align="center"><a href="https://purdue0-my.sharepoint.com/:u:/g/personal/wang3702_purdue_edu/ERC011ZVEeNMt8jqPl5pOSoBSgI6IpZjwy9up92NWRlQHw?e=4T8b6w">download</a></td>
 <td align="center"><a href="">download</a></td>
 </tr>
 <tr><td align="left">FT Top-1</td>
