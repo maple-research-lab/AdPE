@@ -132,14 +132,12 @@ def main_worker(gpu, ngpus_per_node,args):
 
 
 
-    eff_batch_size = args.batch_size * args.accum_iter * misc.get_world_size()
+    eff_batch_size = args.batch_size * args.accum_iter * get_world_size()
 
-    if args.lr is None:  # only base_lr is specified
-        args.lr = args.blr * eff_batch_size / 256
+    args.lr = args.blr * eff_batch_size / 256
 
     print("base lr: %.2e" % (args.lr * 256 / eff_batch_size))
     print("actual lr: %.2e" % args.lr)
-
     print("accumulate grad iterations: %d" % args.accum_iter)
     print("effective batch size: %d" % eff_batch_size)
 
