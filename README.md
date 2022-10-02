@@ -178,8 +178,51 @@ To run 1600 epoch experiments, simply change "--epochs 1600 --warmup_epochs 40".
 Here we used vit_base_patch16 to illustrate the command. For finetuning vit-l and vit-h, please check MAE paper for detailed finetune parameter changes, we followed the same hyper-param change. For learning rate, please always sweep from 1e-4 to 1e-3 to find a better learning rate with better finetune results.
 
 ### 3.1 Finetune APE of MAE+
+For batch-size of 1024 (gradient accumulation), we can run on a single machine of 8\*V100 32gb GPU with the following command:
+```
+python3 main_finetune.py --accum_iter 1 --pe_type 0  \
+    --batch_size 128 --model vit_base_patch16 --finetune [model_path] \
+    --output_dir [output_dir] --log_dir [output_dir] \
+    --epochs 100 --blr [base_learning_rate] --layer_decay 0.65 \
+    --weight_decay 0.05 --drop_path 0.1 --mixup 0.8 --cutmix 1.0 \
+    --reprob 0.25 --dist_eval --data_path [imagenet_path] \
+    --world_size=1 --rank=0   --dist_url "tcp://localhost:10001"
+```
+Here [model_path] is the pre-trained model path,[imagenet_path] is the imagenet directory, [output_dir] is the directory to save model weights and logs,
+[base_learning_rate] is the base learning rate for finetune, please try sweep lr from 1e-4 to 1e-3 to find a suitable lr for finetuning. 
 
+For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment for parameters such as --layer_decay.
 
 ### 3.2 Finetune RPE of MAE+
+For batch-size of 4096 (gradient accumulation), we can run on a single machine of 8\*V100 32gb GPU with the following command:
+```
+python3 main_finetune.py --accum_iter 4 --pe_type 1  \
+    --batch_size 128 --model vit_base_patch16 --finetune [model_path] \
+    --output_dir [output_dir] --log_dir [output_dir] \
+    --epochs 100 --blr [base_learning_rate] --layer_decay 0.65 \
+    --weight_decay 0.05 --drop_path 0.1 --mixup 0.8 --cutmix 1.0 \
+    --reprob 0.25 --dist_eval --data_path [imagenet_path] \
+    --world_size=1 --rank=0   --dist_url "tcp://localhost:10001"
+```
+Here [model_path] is the pre-trained model path,[imagenet_path] is the imagenet directory, [output_dir] is the directory to save model weights and logs,
+[base_learning_rate] is the base learning rate for finetune, please try sweep lr from 1e-4 to 1e-3 to find a suitable lr for finetuning. 
+
+For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment for parameters such as --layer_decay.
+
 
 ### 3.3 Finetune RPE of MAE+
+For batch-size of 4096 (gradient accumulation), we can run on a single machine of 8\*V100 32gb GPU with the following command:
+```
+python3 main_finetune.py --accum_iter 4 --pe_type 2  \
+    --batch_size 128 --model vit_base_patch16 --finetune [model_path] \
+    --output_dir [output_dir] --log_dir [output_dir] \
+    --epochs 100 --blr [base_learning_rate] --layer_decay 0.65 \
+    --weight_decay 0.05 --drop_path 0.1 --mixup 0.8 --cutmix 1.0 \
+    --reprob 0.25 --dist_eval --data_path [imagenet_path] \
+    --world_size=1 --rank=0   --dist_url "tcp://localhost:10001"
+```
+Here [model_path] is the pre-trained model path,[imagenet_path] is the imagenet directory, [output_dir] is the directory to save model weights and logs,
+[base_learning_rate] is the base learning rate for finetune, please try sweep lr from 1e-4 to 1e-3 to find a suitable lr for finetuning. 
+
+For ViT-L and ViT-H, please check the hyper-parameter in MAE to make adjustment for parameters such as --layer_decay.
+
