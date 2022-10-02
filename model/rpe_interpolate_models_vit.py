@@ -1,6 +1,4 @@
 
-
-
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 # All rights reserved.
 
@@ -18,14 +16,14 @@ from functools import partial
 import torch
 import torch.nn as nn
 
-import model.vision_transformer_irpe as vision_transformer_irpe
+import model.vision_transformer_irpe_interpolate as vision_transformer_irpe_interpolate
 
-class VisionTransformer(vision_transformer_irpe.VisionTransformer):
+class VisionTransformer(vision_transformer_irpe_interpolate.VisionTransformer):
     """ Vision Transformer with support for global average pooling
     """
     def __init__(self, global_pool=False, **kwargs):
         super(VisionTransformer, self).__init__(**kwargs)
-        #self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + 1, embed_dim))
+
         self.global_pool = global_pool
 
         if self.global_pool:
@@ -42,7 +40,6 @@ class VisionTransformer(vision_transformer_irpe.VisionTransformer):
         cls_tokens = self.cls_token.expand(B, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
         x = torch.cat((cls_tokens, x), dim=1)
         x = x+self.pos_embed
-
         x = self.pos_drop(x)
 
 
@@ -64,6 +61,7 @@ class VisionTransformer(vision_transformer_irpe.VisionTransformer):
 
         cls_tokens = self.cls_token.expand(B, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
         x = torch.cat((cls_tokens, x), dim=1)
+
         x = x+self.pos_embed
         x = self.pos_drop(x)
 
