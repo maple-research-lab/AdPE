@@ -62,14 +62,18 @@ conda activate AdPE
 conda deactivate(If you want to exit) 
 ```
 
-#### 4 Prepare the ImageNet dataset
-##### 4.1 Download the [ImageNet2012 Dataset](http://image-net.org/challenges/LSVRC/2012/) under "./datasets/imagenet2012".
-##### 4.2 Go to path "./datasets/imagenet2012/val"
-##### 4.3 move validation images to labeled subfolders, using [the following shell script](https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh)
+#### 4 Install RPE acceleration.
+Please see README in "rpe_ope" to install the acceleration for RPE calculation.
+
+#### 5 Prepare the ImageNet dataset
+##### 5.1 Download the [ImageNet2012 Dataset](http://image-net.org/challenges/LSVRC/2012/) under "./datasets/imagenet2012".
+##### 5.2 Go to path "./datasets/imagenet2012/val"
+##### 5.3 move validation images to labeled subfolders, using [the following shell script](https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh)
 
 ## Usage
 
 ### 1. Absolute Position Embedding of MAE+
+All APE should be finetuned via --pe_type=0 in finetune script.
 
 #### 1.1 MAE+ APE baseline
 For batch-size of 4096 (gradient accumulation), we can run on a single machine of 8\*V100 32gb GPU with the following command:
@@ -130,6 +134,8 @@ python main.py  --pe_type=1 --adv_type=0 --norm=0  --batch_size 128 --accum_iter
 ```
 Here [imagenet_path] is the imagenet directory, [output_dir] is the directory to save model weights and logs. 
 
+RPE should be finetuned via --pe_type=1 in finetune script.
+
 To run 1600 epoch experiments, simply change "--epochs 1600 --warmup_epochs 40". 
 
 #### 2.2 MAE+ RPE adversarial embedding
@@ -145,6 +151,8 @@ python main.py  --pe_type=1 --adv_type=1 --norm=[norm_type]  --eps=[norm_eps] --
 Here [imagenet_path] is the imagenet directory, [output_dir] is the directory to save model weights and logs. 
 [norm_type] specifies the norm type for PGD, 0 indicates no PGD, 1 indicates L-2 norm in PGD, 2 indicates L-inf norm in PGD.
 [norm_eps] is the cutoff value. For the performance of different parameters, please refer to supplementary table A.2.
+
+RPE should be finetuned via --pe_type=1 in finetune script.
 
 To run 1600 epoch experiments, simply change "--epochs 1600 --warmup_epochs 40". 
 
@@ -162,9 +170,16 @@ Here [imagenet_path] is the imagenet directory, [output_dir] is the directory to
 [norm_type] specifies the norm type for PGD, 0 indicates no PGD, 1 indicates L-2 norm in PGD, 2 indicates L-inf norm in PGD.
 [norm_eps] is the cutoff value. For the performance of different parameters, please refer to supplementary table A.2.
 
+Interpolated RPE should be finetuned via --pe_type=2 in finetune script.
+
 To run 1600 epoch experiments, simply change "--epochs 1600 --warmup_epochs 40". 
 
 ## 3 Finetune MAE+
+Here we used vit_base_patch16 to illustrate the command. For finetuning vit-l and vit-h, please check MAE paper for detailed finetune parameter changes, we followed the same hyper-param change. For learning rate, please always sweep from 1e-4 to 1e-3 to find a better learning rate with better finetune results.
+
 ### 3.1 Finetune APE of MAE+
 
+
 ### 3.2 Finetune RPE of MAE+
+
+### 3.3 Finetune RPE of MAE+
