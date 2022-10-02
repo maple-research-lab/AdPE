@@ -1,5 +1,8 @@
 import sys
 from timm.data.mixup import Mixup
+from torch.utils.tensorboard import SummaryWriter
+from timm.models.layers import trunc_normal_
+from timm.loss import LabelSmoothingCrossEntropy, SoftTargetCrossEntropy
 from ops.distribute_utils import init_distributed_mode
 import os
 import torch
@@ -10,8 +13,7 @@ import optimizer.lr_decay as lrd
 from optimizer.NativeScaler import NativeScalerWithGradNormCount as NativeScaler
 from training.io_utils import load_model,save_model
 from training.engine_finetune import evaluate,train_one_epoch
-from torch.utils.tensorboard import SummaryWriter
-from timm.models.layers import trunc_normal_
+
 def main_worker(gpu, ngpus_per_node,args):
     init_distributed_mode(gpu,ngpus_per_node,args)
     print('job dir: {}'.format(os.path.dirname(os.path.realpath(__file__))))
