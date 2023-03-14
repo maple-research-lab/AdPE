@@ -365,7 +365,7 @@ For learning rate, please change lr_multiplier.scheduler.values in "detection/ma
 @article{wang2022adpe,
   title={AdPE: Adversarial Positional Embeddings for Pretraining Vision Transformers via MAE+},
   author={Wang, Xiao and Wang, Ying and Xuan, Ziwei and Qi, Guo-Jun},
-  journal={The Eleventh International Conference on Learning Representations (ICLR2023)},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (submitted)},
   year={2023}
 }
 ```
