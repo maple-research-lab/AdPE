@@ -8,7 +8,7 @@
    <img src="https://img.shields.io/badge/licence-MIT-green">
 </a>   
 
-AdPE is a MIM based self-supervised learning methods.
+AdPE is a MIM based self-supervised learning method with adversarial embeddings.
 
 Copyright (C) 2022 Xiao Wang, Ying Wang, Ziwei Xuan, Guo-Jun Qi
 
