@@ -360,7 +360,7 @@ Here [config_path] specifies the configuration file, should be "detection/cascad
 For learning rate, please change lr_multiplier.scheduler.values in "detection/mask_rcnn_vitdet_b_100ep.py" for a more suitable learning rate.
 
 ## Citation:
-[AdPE: Adversarial Positional Embeddings for Pretraining Vision Transformers via MAE+]().  
+[AdPE: Adversarial Positional Embeddings for Pretraining Vision Transformers via MAE+](https://arxiv.org/abs/2303.07598).  
 ```
 @article{wang2022adpe,
   title={AdPE: Adversarial Positional Embeddings for Pretraining Vision Transformers via MAE+},
